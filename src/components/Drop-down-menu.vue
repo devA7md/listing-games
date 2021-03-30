@@ -1,13 +1,14 @@
 <template>
   <div class="hidden sm:block">
     <div
+      data-testid="menu-btn"
       class="flex items-center justify-between text-gray-50 space-x-1 cursor-pointer"
       @click="toggle"
     >
-      <p>MENU</p>
-      <i class="pi pi-angle-down"></i>
+      <p data-testid="menu-text">MENU</p>
+      <i data-testid="menu-icon" class="pi pi-angle-down"></i>
     </div>
-    <Menu id="overlay_menu" ref="menu" :model="items" :popup="true" />
+    <Menu data-testid="menu" ref="menu" :model="items" :popup="true" />
   </div>
 </template>
 

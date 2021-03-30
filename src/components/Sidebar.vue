@@ -10,10 +10,10 @@
       position="right"
       :style="{ width: '15rem' }"
     >
-      <div>
-        <p>Random</p>
-        <p>Random</p>
-        <p>Random</p>
+      <div class="pt-14">
+        <p class="px-2 py-1 cursor-pointer hover:bg-gray-50">Link #1</p>
+        <p class="px-2 py-1 cursor-pointer hover:bg-gray-50">Link #2</p>
+        <p class="px-2 py-1 cursor-pointer hover:bg-gray-50">Link #3</p>
       </div>
     </Sidebar>
   </div>
