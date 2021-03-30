@@ -17,6 +17,11 @@ const routes: Array<RouteConfig> = [
     component: () => import("../views/Game-details.vue"),
   },
   {
+    path: "/category/:id",
+    name: "Category",
+    component: () => import("../views/Category-preview.vue"),
+  },
+  {
     path: "*",
     name: "Not-found",
     component: () => import("../views/Not-found.vue"),
