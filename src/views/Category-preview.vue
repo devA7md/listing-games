@@ -59,14 +59,3 @@ export default Vue.extend({
   },
 });
 </script>
-
-<style lang="scss">
-.p-component {
-  .p-card-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
-  }
-}
-</style>

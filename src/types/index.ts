@@ -9,7 +9,12 @@ export interface IGame {
   body: string;
 }
 
+export interface IRecommendedGame extends IGame {
+  rate: number;
+}
+
 export interface IState {
   categories: IGamesCategories;
+  recommended: IRecommendedGame[];
   selectedGame: IGame;
 }
