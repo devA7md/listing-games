@@ -11,12 +11,16 @@ import {
   MUTATE_RECOMMENDED,
   SET_RECOMMENDED,
   GET_RECOMMENDED,
+  MUTATE_FEATURED_GAME,
+  SET_FEATURED_GAME,
+  GET_FEATURED_GAME,
 } from "@/constants/store";
 
 const categoriesModule = {
   state: {
     categories: {},
     recommended: [],
+    featured: null,
     selectedGame: null,
   },
   mutations: {
@@ -28,6 +32,9 @@ const categoriesModule = {
     },
     [MUTATE_RECOMMENDED](state: IState, payload: IRecommendedGame[]): void {
       state.recommended = payload;
+    },
+    [MUTATE_FEATURED_GAME](state: IState, payload: IGame): void {
+      state.featured = payload;
     },
   },
   actions: {
@@ -49,6 +56,12 @@ const categoriesModule = {
     ): void {
       context.commit(MUTATE_RECOMMENDED, payload);
     },
+    [SET_FEATURED_GAME](
+      context: ActionContext<IGamesCategories, IState>,
+      payload: IGame
+    ): void {
+      context.commit(MUTATE_FEATURED_GAME, payload);
+    },
   },
   getters: {
     [GET_CATEGORIES](state: IState): IGamesCategories {
@@ -59,6 +72,9 @@ const categoriesModule = {
     },
     [GET_RECOMMENDED](state: IState): IRecommendedGame[] {
       return state.recommended;
+    },
+    [GET_FEATURED_GAME](state: IState): IGame {
+      return state.featured;
     },
   },
 };

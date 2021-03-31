@@ -1,12 +1,10 @@
 <template>
-  <div class="p-4">
-    <CardsGrid
-      :error="error"
-      :loading="loading"
-      title="Popular Games"
-      :games="games"
-    />
-  </div>
+  <CardsGrid
+    :error="error"
+    :loading="loading"
+    title="Popular Games"
+    :games="games"
+  />
 </template>
 
 <script lang="ts">

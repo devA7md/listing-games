@@ -16,5 +16,6 @@ export interface IRecommendedGame extends IGame {
 export interface IState {
   categories: IGamesCategories;
   recommended: IRecommendedGame[];
+  featured: IGame;
   selectedGame: IGame;
 }

@@ -1,6 +1,6 @@
 <template>
-  <div class="p-4">
-    <h2 class="text-2xl sm:text-4xl text-gray-600 text-center my-6 uppercase">
+  <div>
+    <h2 class="text-2xl sm:text-4xl text-gray-600 my-6 uppercase">
       {{ title }}
     </h2>
 
