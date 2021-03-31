@@ -1,6 +1,6 @@
 import { ActionContext } from "vuex";
 
-import { IGame, IGamesCategories, IState } from "@/types";
+import { IGame, IGamesCategories, IRecommendedGame, IState } from "@/types";
 import {
   MUTATE_CATEGORIES,
   SET_CATEGORIES,
@@ -8,11 +8,15 @@ import {
   MUTATE_SELECTED_GAME,
   SET_SELECTED_GAME,
   GET_SELECTED_GAME,
+  MUTATE_RECOMMENDED,
+  SET_RECOMMENDED,
+  GET_RECOMMENDED,
 } from "@/constants/store";
 
 const categoriesModule = {
   state: {
     categories: {},
+    recommended: [],
     selectedGame: null,
   },
   mutations: {
@@ -21,6 +25,9 @@ const categoriesModule = {
     },
     [MUTATE_SELECTED_GAME](state: IState, payload: IGame): void {
       state.selectedGame = payload;
+    },
+    [MUTATE_RECOMMENDED](state: IState, payload: IRecommendedGame[]): void {
+      state.recommended = payload;
     },
   },
   actions: {
@@ -36,6 +43,12 @@ const categoriesModule = {
     ): void {
       context.commit(MUTATE_SELECTED_GAME, payload);
     },
+    [SET_RECOMMENDED](
+      context: ActionContext<IGamesCategories, IState>,
+      payload: IRecommendedGame[]
+    ): void {
+      context.commit(MUTATE_RECOMMENDED, payload);
+    },
   },
   getters: {
     [GET_CATEGORIES](state: IState): IGamesCategories {
@@ -43,6 +56,9 @@ const categoriesModule = {
     },
     [GET_SELECTED_GAME](state: IState): IGame {
       return state.selectedGame;
+    },
+    [GET_RECOMMENDED](state: IState): IRecommendedGame[] {
+      return state.recommended;
     },
   },
 };
