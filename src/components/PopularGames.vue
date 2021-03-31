@@ -3,7 +3,7 @@
     <CardsGrid
       :error="error"
       :loading="loading"
-      title="Recommended Games"
+      title="Popular Games"
       :games="games"
     />
   </div>
@@ -18,12 +18,12 @@ import {
   SET_SELECTED_GAME,
 } from "@/constants/store";
 import { mapGetters } from "vuex";
+import CardsGrid from "@/components/CardsGrid.vue";
 import {
-  mostRecommendedFilter,
   fetchAndTransformGames,
   injectSomeData,
+  mostPopularFilter,
 } from "@/services/categories.services";
-import CardsGrid from "@/components/CardsGrid.vue";
 
 export default Vue.extend({
   components: { CardsGrid },
@@ -46,8 +46,8 @@ export default Vue.extend({
     this.loading = true;
     this.games$ = fetchAndTransformGames(
       injectSomeData,
-      mostRecommendedFilter,
-      6
+      mostPopularFilter,
+      4
     ).subscribe(
       (games: IRecommendedGame[]) => {
         this.games = games;

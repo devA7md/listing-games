@@ -33,4 +33,13 @@ export default {
     }
   }
 }
+
+.line-clamp {
+  height: 3.2em;
+  line-height: 1.6em;
+  display: block;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  overflow: hidden;
+}
 </style>
