@@ -1,32 +1,48 @@
 import { ActionContext } from "vuex";
 
-import { IGamesCategories, IState } from "@/types";
+import { IGame, IGamesCategories, IState } from "@/types";
 import {
-  CATEGORIES_MUTATE_SET,
-  CATEGORIES_ACTION_SET,
-  CATEGORIES_GET,
+  MUTATE_CATEGORIES,
+  SET_CATEGORIES,
+  GET_CATEGORIES,
+  MUTATE_SELECTED_GAME,
+  SET_SELECTED_GAME,
+  GET_SELECTED_GAME,
 } from "@/constants/store";
 
 const categoriesModule = {
   state: {
     categories: {},
+    selectedGame: null,
   },
   mutations: {
-    [CATEGORIES_MUTATE_SET](state: IState, payload: IGamesCategories): void {
+    [MUTATE_CATEGORIES](state: IState, payload: IGamesCategories): void {
       state.categories = payload;
+    },
+    [MUTATE_SELECTED_GAME](state: IState, payload: IGame): void {
+      state.selectedGame = payload;
     },
   },
   actions: {
-    [CATEGORIES_ACTION_SET](
+    [SET_CATEGORIES](
       context: ActionContext<IGamesCategories, IState>,
       payload: IGamesCategories
     ): void {
-      context.commit(CATEGORIES_MUTATE_SET, payload);
+      context.commit(MUTATE_CATEGORIES, payload);
+    },
+    [SET_SELECTED_GAME](
+      context: ActionContext<IGamesCategories, IState>,
+      payload: IGame
+    ): void {
+      context.commit(MUTATE_SELECTED_GAME, payload);
     },
   },
   getters: {
-    [CATEGORIES_GET](state: IState): IGamesCategories {
+    [GET_CATEGORIES](state: IState): IGamesCategories {
       return state.categories;
+    },
+    [GET_SELECTED_GAME](state: IState): IGame {
+      return state.selectedGame;
     },
   },
 };
