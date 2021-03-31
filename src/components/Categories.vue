@@ -1,5 +1,5 @@
 <template>
-  <div class="m-4">
+  <div>
     <Carousel :value="Object.keys(games)" :numVisible="3" :numScroll="3">
       <template #item="slotProps">
         <router-link :to="{ name: 'Category', params: { id: slotProps.data } }">
