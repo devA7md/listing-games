@@ -17,7 +17,7 @@
 <script lang="ts">
 import Vue from "vue";
 import Carousel from "primevue/carousel";
-import { CATEGORIES_ACTION_SET } from "@/constants/store";
+import { SET_CATEGORIES } from "@/constants/store";
 import { fetchAndCategorizeGames } from "@/services/categories.services";
 
 export default Vue.extend({
@@ -30,7 +30,7 @@ export default Vue.extend({
   async mounted() {
     const categorizedGames = await fetchAndCategorizeGames();
     this.games = categorizedGames;
-    await this.$store.dispatch(CATEGORIES_ACTION_SET, categorizedGames);
+    await this.$store.dispatch(SET_CATEGORIES, categorizedGames);
   },
 });
 </script>

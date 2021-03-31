@@ -7,7 +7,7 @@
           <template #title>{{ game.title }}</template>
           <template #content>{{ game.body }}</template>
           <template #footer>
-            <Button label="Show Details"></Button>
+            <Button @click="previewDetails(game)" label="Show Details"></Button>
           </template>
         </Card>
       </div>
@@ -24,10 +24,11 @@
 import Vue from "vue";
 import Card from "primevue/card";
 import Button from "primevue/button";
-import { CATEGORIES_GET } from "@/constants/store";
+import { GET_CATEGORIES, SET_SELECTED_GAME } from "@/constants/store";
 import ProgressSpinner from "primevue/progressspinner";
 import { fetchAndCategorizeGames } from "@/services/categories.services";
 import { mapGetters } from "vuex";
+import { IGame } from "@/types";
 
 export default Vue.extend({
   components: { Card, Button, ProgressSpinner },
@@ -38,7 +39,7 @@ export default Vue.extend({
     };
   },
   computed: {
-    ...mapGetters({ categories: CATEGORIES_GET }),
+    ...mapGetters({ categories: GET_CATEGORIES }),
   },
   async mounted() {
     const categories = this.categories[this.$route.params.id];
@@ -49,6 +50,12 @@ export default Vue.extend({
       this.games = (await fetchAndCategorizeGames())[this.$route.params.id];
       this.loading = false;
     }
+  },
+  methods: {
+    previewDetails(game: IGame): void {
+      this.$store.dispatch(SET_SELECTED_GAME, game);
+      this.$router.push({ name: "Game-details", params: { id: game.id } });
+    },
   },
 });
 </script>
