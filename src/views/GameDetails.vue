@@ -31,6 +31,7 @@ import axios from "axios";
 import ProgressSpinner from "primevue/progressspinner";
 import { GET_SELECTED_GAME } from "@/constants/store";
 import { URL } from "@/constants/general";
+import { handleAxiosError } from "@/services/games.services";
 
 export default Vue.extend({
   name: "GameDetails",
@@ -56,10 +57,7 @@ export default Vue.extend({
         const res = await axios.get(URL + "/posts/" + this.$route.params.id);
         this.game = res.data;
       } catch (error) {
-        this.error =
-          error.isAxiosError && error.response
-            ? error.response.data
-            : error.message;
+        this.error = handleAxiosError(error);
       } finally {
         this.loading = false;
       }

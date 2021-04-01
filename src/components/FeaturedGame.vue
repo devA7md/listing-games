@@ -50,6 +50,7 @@ import {
 } from "@/constants/store";
 import { mapGetters } from "vuex";
 import { IGame } from "@/types/games.types";
+import { handleAxiosError } from "@/services/games.services";
 
 export default Vue.extend({
   name: "FeaturedGame",
@@ -78,14 +79,7 @@ export default Vue.extend({
       this.game = res.data;
       await this.$store.dispatch(SET_FEATURED_GAME, res.data);
     } catch (error) {
-      if (error.isAxiosError && error.response) {
-        const {
-          response: { data },
-        } = error;
-        this.error = Object.keys(data).length > 0 ? data : "";
-      } else {
-        this.error = error.message;
-      }
+      this.error = handleAxiosError(error, "Couldn't fetch any featured game");
     } finally {
       this.loading = false;
     }

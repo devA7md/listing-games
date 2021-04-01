@@ -19,6 +19,7 @@ import { mapGetters } from "vuex";
 import CardsGrid from "@/components/CardsGrid.vue";
 import {
   fetchAndTransformGames,
+  handleAxiosError,
   injectSomeData,
   mostPopularFilter,
 } from "@/services/games.services";
@@ -55,17 +56,7 @@ export default Vue.extend({
         this.error = null;
       },
       (error) => {
-        if (error.isAxiosError && error.response) {
-          const {
-            response: { data },
-          } = error;
-          this.error =
-            Object.keys(data).length > 0
-              ? data
-              : "Couldn't fetch recommended games.";
-        } else {
-          this.error = error.message;
-        }
+        this.error = handleAxiosError(error, "Couldn't fetch popular games");
         this.loading = false;
       }
     );

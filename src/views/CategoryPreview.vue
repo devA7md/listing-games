@@ -12,7 +12,10 @@
 <script lang="ts">
 import Vue from "vue";
 import { GET_CATEGORIES, SET_SELECTED_GAME } from "@/constants/store";
-import { fetchAndCategorizeGames } from "@/services/games.services";
+import {
+  fetchAndCategorizeGames,
+  handleAxiosError,
+} from "@/services/games.services";
 import { mapGetters } from "vuex";
 import { IGame } from "@/types/games.types";
 import CardsGrid from "@/components/CardsGrid.vue";
@@ -34,9 +37,14 @@ export default Vue.extend({
     if (categories) {
       this.games = categories;
     } else {
-      this.loading = true;
-      this.games = (await fetchAndCategorizeGames())[this.$route.params.id];
-      this.loading = false;
+      try {
+        this.loading = true;
+        this.games = (await fetchAndCategorizeGames())[this.$route.params.id];
+      } catch (error) {
+        this.error = handleAxiosError(error);
+      } finally {
+        this.loading = false;
+      }
     }
   },
   methods: {
