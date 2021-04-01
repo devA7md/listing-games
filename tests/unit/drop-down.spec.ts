@@ -1,8 +1,8 @@
 import { mount } from "@vue/test-utils";
 
-import DropDownMenu from "@/components/Drop-down-menu.vue";
+import DropDownMenu from "@/components/DropDownMenu.vue";
 
-describe("Drop-down-menu.vue.vue", () => {
+describe("DropDownMenu.vue.vue", () => {
   it("checks the component existence", () => {
     const wrapper = mount(DropDownMenu);
     expect(wrapper.exists()).toBeTruthy();

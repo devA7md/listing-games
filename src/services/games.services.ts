@@ -1,8 +1,15 @@
 import axios, { AxiosResponse } from "axios";
 import { from, Observable } from "rxjs";
-import { bufferCount, filter, map, switchMap, take } from "rxjs/operators";
+import {
+  bufferCount,
+  filter,
+  map,
+  pluck,
+  switchMap,
+  take,
+} from "rxjs/operators";
 
-import { IGame, IRecommendedGame } from "@/types";
+import { IGame, IRecommendedGame } from "@/types/games.types";
 import { URL } from "@/constants/general";
 
 export const fetchAndCategorizeGames = async (): Promise<
@@ -58,9 +65,8 @@ export const fetchAndTransformGames = (
   buffer: number
 ): Observable<any> => {
   return from(axios.get(`${URL}/posts`)).pipe(
-    switchMap<AxiosResponse, Observable<IGame>>((response) =>
-      from(response.data as IGame[])
-    ),
+    pluck<AxiosResponse, IGame[]>("data"),
+    switchMap<IGame[], Observable<IGame>>((games) => from(games)),
     map<IGame, IRecommendedGame>(transformFn),
     filter<IRecommendedGame>(filterFn),
     bufferCount(buffer),

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 class="text-2xl sm:text-4xl text-gray-600 my-6 uppercase">
+    <h2 class="text-3xl sm:text-4xl text-gray-600 my-6 uppercase">
       Featured Game
     </h2>
     <div
@@ -18,9 +18,11 @@
         <div class="flex-1 py-2">
           <p class="text-md text-gray-400">{{ game.title }}</p>
         </div>
-        <router-link :to="{ name: 'Game-details', params: { id: game.id } }">
-          <Button class="self-start mb-1" label="Check"></Button>
-        </router-link>
+        <Button
+          @click="previewDetails(game)"
+          class="self-start mb-1"
+          label="View Details"
+        ></Button>
       </div>
     </div>
 
@@ -41,10 +43,16 @@ import ProgressSpinner from "primevue/progressspinner";
 import Message from "primevue/message";
 import Button from "primevue/button";
 import { URL } from "@/constants/general";
-import { GET_FEATURED_GAME, SET_FEATURED_GAME } from "@/constants/store";
+import {
+  GET_FEATURED_GAME,
+  SET_FEATURED_GAME,
+  SET_SELECTED_GAME,
+} from "@/constants/store";
 import { mapGetters } from "vuex";
+import { IGame } from "@/types/games.types";
 
 export default Vue.extend({
+  name: "FeaturedGame",
   components: { ProgressSpinner, Message, Button },
   data() {
     return {
@@ -65,7 +73,7 @@ export default Vue.extend({
 
     this.loading = true;
     try {
-      const randomPostId = Math.floor(Math.random() * 99);
+      const randomPostId = Math.max(1, Math.floor(Math.random() * 99));
       const res = await axios.get(`${URL}/posts/${randomPostId}`);
       this.game = res.data;
       await this.$store.dispatch(SET_FEATURED_GAME, res.data);
@@ -81,6 +89,12 @@ export default Vue.extend({
     } finally {
       this.loading = false;
     }
+  },
+  methods: {
+    previewDetails(game: IGame): void {
+      this.$store.dispatch(SET_SELECTED_GAME, game);
+      this.$router.push({ name: "GameDetails", params: { id: game.id } });
+    },
   },
 });
 </script>

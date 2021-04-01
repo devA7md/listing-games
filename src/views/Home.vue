@@ -1,15 +1,15 @@
 <template>
   <div>
-    <div class="my-5 sm:my-7 p-4 sm:p-10">
+    <div class="my-4 sm:my-5 p-4 sm:p-10">
       <Categories />
     </div>
-    <div class="my-5 sm:my-7 p-4 sm:p-10">
+    <div class="my-4 sm:my-5 p-4 sm:p-10">
       <FeaturedGame />
     </div>
-    <div class="my-5 sm:my-7 p-4 sm:p-10">
+    <div class="my-4 sm:my-5 p-4 sm:p-10">
       <PopularGames />
     </div>
-    <div class="my-5 sm:my-7 p-4 sm:p-10">
+    <div class="my-4 sm:my-5 p-4 sm:p-10">
       <Recommended />
     </div>
   </div>

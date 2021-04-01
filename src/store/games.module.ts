@@ -1,6 +1,6 @@
 import { ActionContext } from "vuex";
 
-import { IGame, IGamesCategories, IRecommendedGame, IState } from "@/types";
+import { IGame, IGamesCategories, IRecommendedGame, IState } from "@/types/games.types";
 import {
   MUTATE_CATEGORIES,
   SET_CATEGORIES,
@@ -16,7 +16,7 @@ import {
   GET_FEATURED_GAME,
 } from "@/constants/store";
 
-const categoriesModule = {
+const gamesModule = {
   state: {
     categories: {},
     recommended: [],
@@ -79,4 +79,4 @@ const categoriesModule = {
   },
 };
 
-export default categoriesModule;
+export default gamesModule;

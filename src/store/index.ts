@@ -1,8 +1,8 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-import { IState } from "@/types";
-import categoriesModule from "@/store/categories.module";
+import { IState } from "@/types/games.types";
+import gamesModule from "@/store/games.module";
 
 Vue.use(Vuex);
 
@@ -13,6 +13,6 @@ const initialState: IState = {
 export default new Vuex.Store({
   state: initialState,
   modules: {
-    categories: categoriesModule,
+    categories: gamesModule,
   },
 });
