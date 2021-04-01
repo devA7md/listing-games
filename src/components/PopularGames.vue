@@ -2,14 +2,14 @@
   <CardsGrid
     :error="error"
     :loading="loading"
-    title="Popular Games"
+    title="Most Popular"
     :games="games"
   />
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import { IRecommendedGame } from "@/types";
+import { IRecommendedGame } from "@/types/games.types";
 import {
   GET_RECOMMENDED,
   SET_RECOMMENDED,
@@ -21,9 +21,10 @@ import {
   fetchAndTransformGames,
   injectSomeData,
   mostPopularFilter,
-} from "@/services/categories.services";
+} from "@/services/games.services";
 
 export default Vue.extend({
+  name: "PopularGames",
   components: { CardsGrid },
   data() {
     return {
@@ -72,7 +73,7 @@ export default Vue.extend({
   methods: {
     previewDetails(game: IRecommendedGame) {
       this.$store.dispatch(SET_SELECTED_GAME, game);
-      this.$router.push({ name: "Game-details", params: { id: game.id } });
+      this.$router.push({ name: "GameDetails", params: { id: game.id } });
     },
   },
   destroyed(): void {

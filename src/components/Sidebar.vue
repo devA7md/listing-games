@@ -24,6 +24,7 @@ import Vue from "vue";
 import Sidebar from "primevue/sidebar";
 
 export default Vue.extend({
+  name: "Slider",
   components: { Sidebar },
   data() {
     return {

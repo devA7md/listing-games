@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 class="text-2xl sm:text-4xl text-gray-600 my-6 uppercase">
+    <h2 class="text-3xl sm:text-4xl text-gray-600 my-6 uppercase">
       {{ title }}
     </h2>
 
@@ -45,10 +45,11 @@ import Vue from "vue";
 import Card from "primevue/card";
 import ProgressSpinner from "primevue/progressspinner";
 import Message from "primevue/message";
-import { IGame } from "@/types";
+import { IGame } from "@/types/games.types";
 import { SET_SELECTED_GAME } from "@/constants/store";
 
 export default Vue.extend({
+  name: "CardGrid",
   components: { Card, ProgressSpinner, Message },
   props: {
     title: String,
@@ -59,7 +60,7 @@ export default Vue.extend({
   methods: {
     previewDetails(game: IGame): void {
       this.$store.dispatch(SET_SELECTED_GAME, game);
-      this.$router.push({ name: "Game-details", params: { id: game.id } });
+      this.$router.push({ name: "GameDetails", params: { id: game.id } });
     },
   },
 });

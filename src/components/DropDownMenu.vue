@@ -17,6 +17,7 @@ import Vue from "vue";
 import Menu from "primevue/menu";
 
 export default Vue.extend({
+  name: "DropDownMenu",
   components: { Menu },
   data() {
     return {

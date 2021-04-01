@@ -33,7 +33,7 @@ import { GET_SELECTED_GAME } from "@/constants/store";
 import { URL } from "@/constants/general";
 
 export default Vue.extend({
-  name: "Game-details",
+  name: "GameDetails",
   components: { ProgressSpinner },
   data() {
     return {
@@ -47,7 +47,7 @@ export default Vue.extend({
       selectedGame: GET_SELECTED_GAME,
     }),
   },
-  async beforeCreate() {
+  async created() {
     if (this.selectedGame) {
       this.game = this.selectedGame;
     } else {

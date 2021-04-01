@@ -13,18 +13,18 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: "/game/:id",
-    name: "Game-details",
-    component: () => import("../views/Game-details.vue"),
+    name: "GameDetails",
+    component: () => import("../views/GameDetails.vue"),
   },
   {
     path: "/category/:id",
     name: "Category",
-    component: () => import("../views/Category-preview.vue"),
+    component: () => import("../views/CategoryPreview.vue"),
   },
   {
     path: "*",
-    name: "Not-found",
-    component: () => import("../views/Not-found.vue"),
+    name: "NotFound",
+    component: () => import("../views/NotFound.vue"),
   },
 ];
 
