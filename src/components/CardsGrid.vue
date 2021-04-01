@@ -9,18 +9,21 @@
       class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5"
     >
       <Card
+        data-testid="card"
         class="cursor-pointer hover:shadow-2xl"
         :key="game.id"
         v-for="game in games"
         @click.native="previewDetails(game)"
       >
         <template #title>
-          <h2 class="text-xl text-gray-500 line-clamp">
+          <h2 data-testid="card-title" class="text-xl text-gray-500 line-clamp">
             {{ game.title }}
           </h2>
         </template>
         <template #content>
-          <p class="text-justify text-gray-500">{{ game.body }}</p></template
+          <p data-testid="card-body" class="text-justify text-gray-500">
+            {{ game.body }}
+          </p></template
         >
         <template #footer>
           <div class="flex justify-end">
@@ -30,11 +33,19 @@
       </Card>
     </div>
 
-    <Message severity="error" :closable="false" v-if="error && !loading"
+    <Message
+      data-testid="error"
+      severity="error"
+      :closable="false"
+      v-if="error && !loading"
       >{{ error }}
     </Message>
 
-    <div class="flex justify-center" v-if="loading && !error">
+    <div
+      data-testid="loading"
+      class="flex justify-center"
+      v-if="loading && !error"
+    >
       <ProgressSpinner style="width: 50px; height: 50px" />
     </div>
   </div>
@@ -49,7 +60,7 @@ import { IGame } from "@/types/games.types";
 import { SET_SELECTED_GAME } from "@/constants/store";
 
 export default Vue.extend({
-  name: "CardGrid",
+  name: "CardsGrid",
   components: { Card, ProgressSpinner, Message },
   props: {
     title: String,
