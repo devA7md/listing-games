@@ -61,12 +61,6 @@ export default Vue.extend({
       }
     );
   },
-  methods: {
-    previewDetails(game: IRecommendedGame) {
-      this.$store.dispatch(SET_SELECTED_GAME, game);
-      this.$router.push({ name: "GameDetails", params: { id: game.id } });
-    },
-  },
   destroyed(): void {
     if (this.games$) this.games$.unsubscribe();
   },

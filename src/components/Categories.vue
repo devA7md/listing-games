@@ -5,7 +5,7 @@
     </h2>
     <Carousel
       v-if="!error && !loading"
-      :value="Object.keys(games)"
+      :value="Object.keys(categories)"
       :numVisible="4"
       :numScroll="3"
       :responsiveOptions="responsiveOptions"
@@ -39,18 +39,19 @@ import Vue from "vue";
 import Carousel from "primevue/carousel";
 import Message from "primevue/message";
 import ProgressSpinner from "primevue/progressspinner";
-import { SET_CATEGORIES } from "@/constants/store";
+import { GET_CATEGORIES, SET_CATEGORIES } from "@/constants/store";
 import {
   fetchAndCategorizeGames,
   handleAxiosError,
 } from "@/services/games.services";
+import { mapGetters } from "vuex";
 
 export default Vue.extend({
   name: "Categories",
   components: { Carousel, Message, ProgressSpinner },
   data() {
     return {
-      games: {},
+      categories: {},
       responsiveOptions: [
         {
           breakpoint: "1024px",
@@ -67,11 +68,19 @@ export default Vue.extend({
       loading: false,
     };
   },
-  async mounted() {
+  computed: {
+    ...mapGetters({
+      cat: GET_CATEGORIES,
+    }),
+  },
+  async created() {
+    if (Object.keys(this.cat).length > 0) {
+      return (this.categories = this.cat);
+    }
     try {
       this.loading = true;
       const categorizedGames = await fetchAndCategorizeGames();
-      this.games = categorizedGames;
+      this.categories = categorizedGames;
       await this.$store.dispatch(SET_CATEGORIES, categorizedGames);
     } catch (error) {
       this.error = handleAxiosError(error, "Couldn't fetch categories");

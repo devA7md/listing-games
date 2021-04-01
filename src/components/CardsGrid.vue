@@ -56,7 +56,7 @@ import Vue from "vue";
 import Card from "primevue/card";
 import ProgressSpinner from "primevue/progressspinner";
 import Message from "primevue/message";
-import { IGame } from "@/types/games.types";
+import { IRecommendedGame } from "@/types/games.types";
 import { SET_SELECTED_GAME } from "@/constants/store";
 
 export default Vue.extend({
@@ -69,9 +69,14 @@ export default Vue.extend({
     error: String,
   },
   methods: {
-    previewDetails(game: IGame): void {
+    previewDetails(game: IRecommendedGame) {
       this.$store.dispatch(SET_SELECTED_GAME, game);
-      this.$router.push({ name: "GameDetails", params: { id: game.id } });
+      this.$router
+        .push({ name: "GameDetails", params: { id: game.id } })
+        .catch(() => {
+          // just to catch navigating to the same route
+        });
+      if (Object.keys(this.$route.params).length > 0) window.scrollTo(0, 0);
     },
   },
 });
