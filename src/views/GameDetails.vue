@@ -1,26 +1,26 @@
 <template>
-  <div class="p-4">
-    <h1 class="text-4xl text-gray-700 pb-4">Game Details</h1>
-    <template v-if="game && !loading">
-      <div class="flex items-center justify-center">
-        <div class="bg-white rounded shadow-lg p-4">
-          <h2 class="text-3xl text-gray-700">{{ game.title }}</h2>
-          <h4 class="text-md text-gray-600">{{ game.body }}</h4>
-        </div>
-      </div>
-    </template>
-    <template v-else-if="loading">
-      <div class="flex justify-center">
-        <ProgressSpinner style="width: 50px; height: 50px" />
-      </div>
-    </template>
-    <template v-else-if="error && !loading"
-      ><p
-        class="bg-red-100 rounded border-red-400 text-gray-500 p-5 text-center"
-      >
-        {{ error }}
-      </p></template
+  <div class="p-4 sm:my-5 p-4 sm:p-10">
+    <h1 class="text-4xl text-gray-500 uppercase pb-4">Game Details</h1>
+
+    <div v-if="game && !loading" class="bg-white rounded shadow-lg p-4">
+      <h2 class="text-3xl text-gray-700">{{ game.title }}</h2>
+      <h4 class="text-md text-gray-600">{{ game.body }}</h4>
+    </div>
+
+    <div v-else-if="loading" class="flex justify-center">
+      <ProgressSpinner style="width: 50px; height: 50px" />
+    </div>
+
+    <p
+      v-else-if="error && !loading"
+      class="bg-red-100 rounded border-red-400 text-gray-500 p-5 text-center"
     >
+      {{ error }}
+    </p>
+
+    <div class="my-20">
+      <Recommended />
+    </div>
   </div>
 </template>
 
@@ -32,10 +32,11 @@ import ProgressSpinner from "primevue/progressspinner";
 import { GET_SELECTED_GAME } from "@/constants/store";
 import { URL } from "@/constants/general";
 import { handleAxiosError } from "@/services/games.services";
+import Recommended from "@/components/Recommended.vue";
 
 export default Vue.extend({
   name: "GameDetails",
-  components: { ProgressSpinner },
+  components: { Recommended, ProgressSpinner },
   data() {
     return {
       game: null,

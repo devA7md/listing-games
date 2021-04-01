@@ -1,7 +1,7 @@
 <template>
   <div>
     <Header />
-    <router-view />
+    <router-view :key="$route.fullPath" />
   </div>
 </template>
 
@@ -20,6 +20,10 @@ export default {
 @import "~primevue/resources/themes/saga-orange/theme.css";
 @import "~primevue/resources/primevue.min.css";
 @import "~primeicons/primeicons.css";
+
+html {
+  scroll-behavior: smooth;
+}
 
 .p-component {
   .p-card-body {

@@ -47,11 +47,5 @@ export default Vue.extend({
       }
     }
   },
-  methods: {
-    previewDetails(game: IGame): void {
-      this.$store.dispatch(SET_SELECTED_GAME, game);
-      this.$router.push({ name: "GameDetails", params: { id: game.id } });
-    },
-  },
 });
 </script>
