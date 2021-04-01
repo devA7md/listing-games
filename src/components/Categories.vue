@@ -4,6 +4,7 @@
       Categories
     </h2>
     <Carousel
+      v-if="!error && !loading"
       :value="Object.keys(games)"
       :numVisible="4"
       :numScroll="3"
@@ -22,18 +23,31 @@
         </router-link>
       </template>
     </Carousel>
+
+    <div v-else-if="loading && !error" class="flex justify-center">
+      <ProgressSpinner style="width: 50px; height: 50px" />
+    </div>
+
+    <Message severity="error" :closable="false" v-else-if="error && !loading"
+      >{{ error }}
+    </Message>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import Carousel from "primevue/carousel";
+import Message from "primevue/message";
+import ProgressSpinner from "primevue/progressspinner";
 import { SET_CATEGORIES } from "@/constants/store";
-import { fetchAndCategorizeGames } from "@/services/games.services";
+import {
+  fetchAndCategorizeGames,
+  handleAxiosError,
+} from "@/services/games.services";
 
 export default Vue.extend({
   name: "Categories",
-  components: { Carousel },
+  components: { Carousel, Message, ProgressSpinner },
   data() {
     return {
       games: {},
@@ -49,12 +63,21 @@ export default Vue.extend({
           numScroll: 1,
         },
       ],
+      error: null,
+      loading: false,
     };
   },
   async mounted() {
-    const categorizedGames = await fetchAndCategorizeGames();
-    this.games = categorizedGames;
-    await this.$store.dispatch(SET_CATEGORIES, categorizedGames);
+    try {
+      this.loading = true;
+      const categorizedGames = await fetchAndCategorizeGames();
+      this.games = categorizedGames;
+      await this.$store.dispatch(SET_CATEGORIES, categorizedGames);
+    } catch (error) {
+      this.error = handleAxiosError(error, "Couldn't fetch categories");
+    } finally {
+      this.loading = false;
+    }
   },
 });
 </script>

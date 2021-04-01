@@ -73,3 +73,16 @@ export const fetchAndTransformGames = (
     take(1)
   );
 };
+
+export const handleAxiosError = (error: any, customMessage: string): string => {
+  let message = null;
+  if (error.isAxiosError && error.response) {
+    const {
+      response: { data },
+    } = error;
+    message = Object.keys(data).length > 0 ? data : customMessage;
+  } else {
+    message = error.message;
+  }
+  return message;
+};

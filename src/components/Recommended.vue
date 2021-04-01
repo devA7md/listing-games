@@ -20,6 +20,7 @@ import {
   mostRecommendedFilter,
   fetchAndTransformGames,
   injectSomeData,
+  handleAxiosError,
 } from "@/services/games.services";
 import CardsGrid from "@/components/CardsGrid.vue";
 
@@ -55,17 +56,10 @@ export default Vue.extend({
         this.error = null;
       },
       (error) => {
-        if (error.isAxiosError && error.response) {
-          const {
-            response: { data },
-          } = error;
-          this.error =
-            Object.keys(data).length > 0
-              ? data
-              : "Couldn't fetch recommended games.";
-        } else {
-          this.error = error.message;
-        }
+        this.error = handleAxiosError(
+          error,
+          "Couldn't fetch recommended games"
+        );
         this.loading = false;
       }
     );
