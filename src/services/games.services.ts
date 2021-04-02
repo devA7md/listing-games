@@ -9,7 +9,7 @@ import {
   take,
 } from "rxjs/operators";
 
-import { IGame, IRecommendedGame } from "@/types/games.types";
+import { IGame, IModifiedGame } from "@/types/games.types";
 import { URL } from "@/constants/general";
 
 export const fetchAndCategorizeGames = async (): Promise<
@@ -21,7 +21,7 @@ export const fetchAndCategorizeGames = async (): Promise<
   }, {});
 };
 
-export const injectSomeData = (obj: any): any => {
+export const injectSomeData = (obj: IGame): IModifiedGame => {
   // this will generate a year like 2015, 2010, 2009...
   // between 2001 and 2020
   const randomYear = Number(
@@ -32,13 +32,13 @@ export const injectSomeData = (obj: any): any => {
     ...obj,
     year: randomYear,
     rating: Math.floor(Math.random() * 100),
-    price: (Math.random() * 1e3).toFixed(2),
+    price: +(Math.random() * 1e3).toFixed(2),
     views: Math.floor(Math.random() * 1e4),
     comments: Math.floor(Math.random() * 1e4),
   };
 };
 
-export const mostRecommendedFilter = (obj: any): boolean => {
+export const mostRecommendedFilter = (obj: IModifiedGame): boolean => {
   // will assume that most recommended ones those
   // with low price and high rating, views and comments number
   const hasGoodRating = obj.rating > 50;
@@ -49,7 +49,7 @@ export const mostRecommendedFilter = (obj: any): boolean => {
   return hasGoodRating && hasMuchViews && hasMuchComments && hasLowPrice;
 };
 
-export const mostPopularFilter = (obj: any): boolean => {
+export const mostPopularFilter = (obj: IModifiedGame): boolean => {
   // will assume that most popular ones those
   // with high views and comments and good rating
   const hasGoodRating = obj.rating > 75;
@@ -67,8 +67,8 @@ export const fetchAndTransformGames = (
   return from(axios.get(`${URL}/posts`)).pipe(
     pluck<AxiosResponse, IGame[]>("data"),
     switchMap<IGame[], Observable<IGame>>((games) => from(games)),
-    map<IGame, IRecommendedGame>(transformFn),
-    filter<IRecommendedGame>(filterFn),
+    map<IGame, IModifiedGame>(transformFn),
+    filter<IModifiedGame>(filterFn),
     bufferCount(buffer),
     take(1)
   );

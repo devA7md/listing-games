@@ -9,12 +9,8 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { IRecommendedGame } from "@/types/games.types";
-import {
-  GET_RECOMMENDED,
-  SET_RECOMMENDED,
-  SET_SELECTED_GAME,
-} from "@/constants/store";
+import { IModifiedGame } from "@/types/games.types";
+import { GET_POPULAR, SET_POPULAR } from "@/constants/store";
 import { mapGetters } from "vuex";
 import CardsGrid from "@/components/CardsGrid.vue";
 import {
@@ -23,11 +19,12 @@ import {
   injectSomeData,
   mostPopularFilter,
 } from "@/services/games.services";
+import { IPopularData } from "@/types/gereral.types";
 
 export default Vue.extend({
   name: "PopularGames",
   components: { CardsGrid },
-  data() {
+  data(): IPopularData {
     return {
       games$: null,
       games: [],
@@ -36,9 +33,9 @@ export default Vue.extend({
     };
   },
   computed: {
-    ...mapGetters({ recommended: GET_RECOMMENDED }),
+    ...mapGetters({ recommended: GET_POPULAR }),
   },
-  async mounted(): void {
+  async mounted(): Promise<void> {
     if (this.recommended.length > 0) {
       return (this.games = this.recommended);
     }
@@ -49,9 +46,9 @@ export default Vue.extend({
       mostPopularFilter,
       4
     ).subscribe(
-      (games: IRecommendedGame[]) => {
+      (games: IModifiedGame[]) => {
         this.games = games;
-        this.$store.dispatch(SET_RECOMMENDED, games);
+        this.$store.dispatch(SET_POPULAR, games);
         this.loading = false;
         this.error = null;
       },

@@ -33,11 +33,12 @@ import { GET_SELECTED_GAME } from "@/constants/store";
 import { URL } from "@/constants/general";
 import { handleAxiosError } from "@/services/games.services";
 import Recommended from "@/components/Recommended.vue";
+import { IGameData } from "@/types/gereral.types";
 
 export default Vue.extend({
   name: "GameDetails",
   components: { Recommended, ProgressSpinner },
-  data() {
+  data(): IGameData {
     return {
       game: null,
       loading: false,
@@ -57,8 +58,12 @@ export default Vue.extend({
       try {
         const res = await axios.get(URL + "/posts/" + this.$route.params.id);
         this.game = res.data;
+        this.error = null;
       } catch (error) {
-        this.error = handleAxiosError(error);
+        this.error = handleAxiosError(
+          error,
+          "Couldn't fetch recommended games"
+        );
       } finally {
         this.loading = false;
       }

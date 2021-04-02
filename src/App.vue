@@ -46,4 +46,8 @@ html {
   word-wrap: break-word;
   overflow: hidden;
 }
+
+.sec-layout {
+  @apply my-4 sm:my-5 p-4 sm:p-10;
+}
 </style>
