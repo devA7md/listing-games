@@ -45,7 +45,7 @@ import {
   handleAxiosError,
 } from "@/services/games.services";
 import { mapGetters } from "vuex";
-import { ICategoriesData } from "@/types/gereral.types";
+import { ICategoriesData } from "@/types/general.types";
 
 export default Vue.extend({
   name: "Categories",

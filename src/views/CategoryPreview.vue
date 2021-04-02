@@ -17,9 +17,8 @@ import {
   handleAxiosError,
 } from "@/services/games.services";
 import { mapGetters } from "vuex";
-import { IGame } from "@/types/games.types";
 import CardsGrid from "@/components/CardsGrid.vue";
-import { ICategoryPreviewData } from "@/types/gereral.types";
+import { ICategoryPreviewData } from "@/types/general.types";
 
 export default Vue.extend({
   components: { CardsGrid },

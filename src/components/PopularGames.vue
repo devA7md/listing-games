@@ -19,7 +19,7 @@ import {
   injectSomeData,
   mostPopularFilter,
 } from "@/services/games.services";
-import { IPopularData } from "@/types/gereral.types";
+import { IPopularData } from "@/types/general.types";
 
 export default Vue.extend({
   name: "PopularGames",
