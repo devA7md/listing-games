@@ -51,7 +51,7 @@ import {
 import { mapGetters } from "vuex";
 import { IGame } from "@/types/games.types";
 import { handleAxiosError } from "@/services/games.services";
-import { IGameData } from "@/types/gereral.types";
+import { IGameData } from "@/types/general.types";
 
 export default Vue.extend({
   name: "FeaturedGame",

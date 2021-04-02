@@ -23,7 +23,7 @@ import {
   handleAxiosError,
 } from "@/services/games.services";
 import CardsGrid from "@/components/CardsGrid.vue";
-import { IRecommendedData } from "@/types/gereral.types";
+import { IRecommendedData } from "@/types/general.types";
 
 export default Vue.extend({
   name: "Recommended",

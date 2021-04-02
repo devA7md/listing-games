@@ -33,7 +33,7 @@ import { GET_SELECTED_GAME } from "@/constants/store";
 import { URL } from "@/constants/general";
 import { handleAxiosError } from "@/services/games.services";
 import Recommended from "@/components/Recommended.vue";
-import { IGameData } from "@/types/gereral.types";
+import { IGameData } from "@/types/general.types";
 
 export default Vue.extend({
   name: "GameDetails",
