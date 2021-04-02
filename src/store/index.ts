@@ -8,6 +8,10 @@ Vue.use(Vuex);
 
 const initialState: IState = {
   categories: {},
+  recommended: [],
+  popular: [],
+  featured: null,
+  selectedGame: null,
 };
 
 export default new Vuex.Store({

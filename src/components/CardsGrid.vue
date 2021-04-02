@@ -56,7 +56,7 @@ import Vue from "vue";
 import Card from "primevue/card";
 import ProgressSpinner from "primevue/progressspinner";
 import Message from "primevue/message";
-import { IRecommendedGame } from "@/types/games.types";
+import { IModifiedGame } from "@/types/games.types";
 import { SET_SELECTED_GAME } from "@/constants/store";
 
 export default Vue.extend({
@@ -69,7 +69,7 @@ export default Vue.extend({
     error: String,
   },
   methods: {
-    previewDetails(game: IRecommendedGame) {
+    previewDetails(game: IModifiedGame) {
       this.$store.dispatch(SET_SELECTED_GAME, game);
       this.$router
         .push({ name: "GameDetails", params: { id: game.id } })

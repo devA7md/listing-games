@@ -11,7 +11,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { GET_CATEGORIES, SET_SELECTED_GAME } from "@/constants/store";
+import { GET_CATEGORIES } from "@/constants/store";
 import {
   fetchAndCategorizeGames,
   handleAxiosError,
@@ -19,12 +19,13 @@ import {
 import { mapGetters } from "vuex";
 import { IGame } from "@/types/games.types";
 import CardsGrid from "@/components/CardsGrid.vue";
+import { ICategoryPreviewData } from "@/types/gereral.types";
 
 export default Vue.extend({
   components: { CardsGrid },
-  data() {
+  data(): ICategoryPreviewData {
     return {
-      games: [] as IGame[],
+      games: [],
       loading: false,
       error: null,
     };
@@ -40,8 +41,9 @@ export default Vue.extend({
       try {
         this.loading = true;
         this.games = (await fetchAndCategorizeGames())[this.$route.params.id];
+        this.error = null;
       } catch (error) {
-        this.error = handleAxiosError(error);
+        this.error = handleAxiosError(error, "Couldn't fetch categories");
       } finally {
         this.loading = false;
       }

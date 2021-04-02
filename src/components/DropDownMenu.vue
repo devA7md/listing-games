@@ -34,8 +34,8 @@ export default Vue.extend({
     };
   },
   methods: {
-    toggle(event) {
-      this.$refs.menu.toggle(event);
+    toggle(event: any) {
+      (this.$refs.menu as any).toggle(event);
     },
   },
 });

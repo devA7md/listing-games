@@ -1,6 +1,11 @@
 import { ActionContext } from "vuex";
 
-import { IGame, IGamesCategories, IRecommendedGame, IState } from "@/types/games.types";
+import {
+  IGame,
+  IGamesCategories,
+  IModifiedGame,
+  IState,
+} from "@/types/games.types";
 import {
   MUTATE_CATEGORIES,
   SET_CATEGORIES,
@@ -14,12 +19,16 @@ import {
   MUTATE_FEATURED_GAME,
   SET_FEATURED_GAME,
   GET_FEATURED_GAME,
+  GET_POPULAR,
+  SET_POPULAR,
+  MUTATE_POPULAR,
 } from "@/constants/store";
 
 const gamesModule = {
   state: {
     categories: {},
     recommended: [],
+    popular: [],
     featured: null,
     selectedGame: null,
   },
@@ -30,8 +39,11 @@ const gamesModule = {
     [MUTATE_SELECTED_GAME](state: IState, payload: IGame): void {
       state.selectedGame = payload;
     },
-    [MUTATE_RECOMMENDED](state: IState, payload: IRecommendedGame[]): void {
+    [MUTATE_RECOMMENDED](state: IState, payload: IModifiedGame[]): void {
       state.recommended = payload;
+    },
+    [MUTATE_POPULAR](state: IState, payload: IModifiedGame[]): void {
+      state.popular = payload;
     },
     [MUTATE_FEATURED_GAME](state: IState, payload: IGame): void {
       state.featured = payload;
@@ -52,9 +64,15 @@ const gamesModule = {
     },
     [SET_RECOMMENDED](
       context: ActionContext<IGamesCategories, IState>,
-      payload: IRecommendedGame[]
+      payload: IModifiedGame[]
     ): void {
       context.commit(MUTATE_RECOMMENDED, payload);
+    },
+    [SET_POPULAR](
+      context: ActionContext<IGamesCategories, IState>,
+      payload: IModifiedGame[]
+    ): void {
+      context.commit(MUTATE_POPULAR, payload);
     },
     [SET_FEATURED_GAME](
       context: ActionContext<IGamesCategories, IState>,
@@ -67,13 +85,16 @@ const gamesModule = {
     [GET_CATEGORIES](state: IState): IGamesCategories {
       return state.categories;
     },
-    [GET_SELECTED_GAME](state: IState): IGame {
+    [GET_SELECTED_GAME](state: IState): IGame | null {
       return state.selectedGame;
     },
-    [GET_RECOMMENDED](state: IState): IRecommendedGame[] {
+    [GET_RECOMMENDED](state: IState): IModifiedGame[] {
       return state.recommended;
     },
-    [GET_FEATURED_GAME](state: IState): IGame {
+    [GET_POPULAR](state: IState): IModifiedGame[] {
+      return state.popular;
+    },
+    [GET_FEATURED_GAME](state: IState): IGame | null {
       return state.featured;
     },
   },

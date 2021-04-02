@@ -45,11 +45,12 @@ import {
   handleAxiosError,
 } from "@/services/games.services";
 import { mapGetters } from "vuex";
+import { ICategoriesData } from "@/types/gereral.types";
 
 export default Vue.extend({
   name: "Categories",
   components: { Carousel, Message, ProgressSpinner },
-  data() {
+  data(): ICategoriesData {
     return {
       categories: {},
       responsiveOptions: [
@@ -73,7 +74,7 @@ export default Vue.extend({
       cat: GET_CATEGORIES,
     }),
   },
-  async created() {
+  async created(): Promise<void> {
     if (Object.keys(this.cat).length > 0) {
       return (this.categories = this.cat);
     }
@@ -82,6 +83,7 @@ export default Vue.extend({
       const categorizedGames = await fetchAndCategorizeGames();
       this.categories = categorizedGames;
       await this.$store.dispatch(SET_CATEGORIES, categorizedGames);
+      this.error = null;
     } catch (error) {
       this.error = handleAxiosError(error, "Couldn't fetch categories");
     } finally {

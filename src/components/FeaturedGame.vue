@@ -51,11 +51,12 @@ import {
 import { mapGetters } from "vuex";
 import { IGame } from "@/types/games.types";
 import { handleAxiosError } from "@/services/games.services";
+import { IGameData } from "@/types/gereral.types";
 
 export default Vue.extend({
   name: "FeaturedGame",
   components: { ProgressSpinner, Message, Button },
-  data() {
+  data(): IGameData {
     return {
       game: null,
       error: null,
@@ -67,7 +68,7 @@ export default Vue.extend({
       featuredGame: GET_FEATURED_GAME,
     }),
   },
-  async mounted(): void {
+  async mounted(): Promise<void> {
     if (this.featuredGame) {
       return (this.game = this.featuredGame);
     }
@@ -78,6 +79,7 @@ export default Vue.extend({
       const res = await axios.get(`${URL}/posts/${randomPostId}`);
       this.game = res.data;
       await this.$store.dispatch(SET_FEATURED_GAME, res.data);
+      this.error = null;
     } catch (error) {
       this.error = handleAxiosError(error, "Couldn't fetch any featured game");
     } finally {

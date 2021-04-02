@@ -9,7 +9,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { IRecommendedGame } from "@/types/games.types";
+import { IModifiedGame } from "@/types/games.types";
 import {
   GET_RECOMMENDED,
   SET_RECOMMENDED,
@@ -23,11 +23,12 @@ import {
   handleAxiosError,
 } from "@/services/games.services";
 import CardsGrid from "@/components/CardsGrid.vue";
+import { IRecommendedData } from "@/types/gereral.types";
 
 export default Vue.extend({
   name: "Recommended",
   components: { CardsGrid },
-  data() {
+  data(): IRecommendedData {
     return {
       games$: null,
       games: [],
@@ -38,7 +39,7 @@ export default Vue.extend({
   computed: {
     ...mapGetters({ recommended: GET_RECOMMENDED }),
   },
-  async mounted(): void {
+  async mounted(): Promise<void> {
     if (this.recommended.length > 0) {
       return (this.games = this.recommended);
     }
@@ -49,7 +50,7 @@ export default Vue.extend({
       mostRecommendedFilter,
       6
     ).subscribe(
-      (games: IRecommendedGame[]) => {
+      (games: IModifiedGame[]) => {
         this.games = games;
         this.$store.dispatch(SET_RECOMMENDED, games);
         this.loading = false;
