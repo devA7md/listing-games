@@ -25,5 +25,6 @@ import FeaturedGame from "@/components/FeaturedGame.vue";
 export default Vue.extend({
   name: "Home",
   components: { FeaturedGame, PopularGames, Recommended, Categories },
+  title: "Home",
 });
 </script>
