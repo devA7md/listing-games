@@ -38,7 +38,9 @@ import { IGameData } from "@/types/general.types";
 export default Vue.extend({
   name: "GameDetails",
   components: { Recommended, ProgressSpinner },
-  title: "Game details",
+  // title(): string {
+  //   return "Game details";
+  // },
   data(): IGameData {
     return {
       game: null,
