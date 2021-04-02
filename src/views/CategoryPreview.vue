@@ -22,7 +22,9 @@ import { ICategoryPreviewData } from "@/types/general.types";
 
 export default Vue.extend({
   components: { CardsGrid },
-  title: "Category preview",
+  // title(): string {
+  //   return "Category preview";
+  // },
   data(): ICategoryPreviewData {
     return {
       games: [],
