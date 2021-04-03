@@ -7,6 +7,5 @@ import Vue from "vue";
 
 export default Vue.extend({
   name: "NotFound",
-  title: "404 not found",
 });
 </script>
