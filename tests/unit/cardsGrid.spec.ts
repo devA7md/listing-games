@@ -3,7 +3,7 @@ import Vuex from "vuex";
 import VueRouter from "vue-router";
 
 import CardsGrid from "@/components/CardsGrid.vue";
-import { SET_SELECTED_GAME } from "@/constants/store";
+import { MUTATE_SELECTED_GAME } from "@/constants/store";
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
@@ -16,16 +16,16 @@ describe("CardSGrid", () => {
     error: null,
     loading: false,
   };
-  let actions: any;
+  let mutations: any;
   let store: any;
   let router: any;
 
   beforeEach(() => {
-    actions = {
-      [SET_SELECTED_GAME]: jest.fn(),
+    mutations = {
+      [MUTATE_SELECTED_GAME]: jest.fn(),
     };
     store = new Vuex.Store({
-      actions,
+      mutations,
     });
     router = new VueRouter();
   });
@@ -84,6 +84,6 @@ describe("CardSGrid", () => {
     });
     const cardWrapper = wrapper.find("[data-testid=card]");
     cardWrapper.trigger("click");
-    expect(actions[SET_SELECTED_GAME]).toHaveBeenCalled();
+    expect(mutations[MUTATE_SELECTED_GAME]).toHaveBeenCalled();
   });
 });

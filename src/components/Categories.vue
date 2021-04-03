@@ -39,12 +39,11 @@ import Vue from "vue";
 import Carousel from "primevue/carousel";
 import Message from "primevue/message";
 import ProgressSpinner from "primevue/progressspinner";
-import { GET_CATEGORIES, SET_CATEGORIES } from "@/constants/store";
+import { MUTATE_CATEGORIES } from "@/constants/store";
 import {
   fetchAndCategorizeGames,
   handleAxiosError,
 } from "@/services/games.services";
-import { mapGetters } from "vuex";
 import { ICategoriesData } from "@/types/general.types";
 
 export default Vue.extend({
@@ -69,20 +68,16 @@ export default Vue.extend({
       loading: false,
     };
   },
-  computed: {
-    ...mapGetters({
-      cat: GET_CATEGORIES,
-    }),
-  },
   async created(): Promise<void> {
-    if (Object.keys(this.cat).length > 0) {
-      return (this.categories = this.cat);
+    const cat = this.$store.state.games.categories;
+    if (Object.keys(cat).length > 0) {
+      return (this.categories = cat);
     }
     try {
       this.loading = true;
       const categorizedGames = await fetchAndCategorizeGames();
       this.categories = categorizedGames;
-      await this.$store.dispatch(SET_CATEGORIES, categorizedGames);
+      await this.$store.commit(MUTATE_CATEGORIES, categorizedGames);
       this.error = null;
     } catch (error) {
       this.error = handleAxiosError(error, "Couldn't fetch categories");

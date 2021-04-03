@@ -10,17 +10,12 @@
 <script lang="ts">
 import Vue from "vue";
 import { IModifiedGame } from "@/types/games.types";
+import { MUTATE_RECOMMENDED } from "@/constants/store";
 import {
-  GET_RECOMMENDED,
-  SET_RECOMMENDED,
-  SET_SELECTED_GAME,
-} from "@/constants/store";
-import { mapGetters } from "vuex";
-import {
-  mostRecommendedFilter,
   fetchAndTransformGames,
-  injectSomeData,
   handleAxiosError,
+  injectSomeData,
+  mostRecommendedFilter,
 } from "@/services/games.services";
 import CardsGrid from "@/components/CardsGrid.vue";
 import { IRecommendedData } from "@/types/general.types";
@@ -36,12 +31,10 @@ export default Vue.extend({
       error: null,
     };
   },
-  computed: {
-    ...mapGetters({ recommended: GET_RECOMMENDED }),
-  },
   async mounted(): Promise<void> {
-    if (this.recommended.length > 0) {
-      return (this.games = this.recommended);
+    const recommended = this.$store.state.games.recommended;
+    if (recommended.length > 0) {
+      return (this.games = recommended);
     }
 
     this.loading = true;
@@ -52,7 +45,7 @@ export default Vue.extend({
     ).subscribe(
       (games: IModifiedGame[]) => {
         this.games = games;
-        this.$store.dispatch(SET_RECOMMENDED, games);
+        this.$store.commit(MUTATE_RECOMMENDED, games);
         this.loading = false;
         this.error = null;
       },

@@ -57,7 +57,7 @@ import Card from "primevue/card";
 import ProgressSpinner from "primevue/progressspinner";
 import Message from "primevue/message";
 import { IModifiedGame } from "@/types/games.types";
-import { SET_SELECTED_GAME } from "@/constants/store";
+import { MUTATE_SELECTED_GAME } from "@/constants/store";
 
 export default Vue.extend({
   name: "CardsGrid",
@@ -70,7 +70,7 @@ export default Vue.extend({
   },
   methods: {
     previewDetails(game: IModifiedGame) {
-      this.$store.dispatch(SET_SELECTED_GAME, game);
+      this.$store.commit(MUTATE_SELECTED_GAME, game);
       this.$router
         .push({ name: "GameDetails", params: { id: game.id } })
         .catch(() => {
