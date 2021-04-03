@@ -1,7 +1,7 @@
 <template>
   <div class="sm:hidden">
     <i
-      class="pi pi-bars text-gray-50 text-xl cursor-pointer"
+      class="pi pi-bars icon-style"
       @click="visibleLeft = true"
     ></i>
 

@@ -9,9 +9,11 @@ export const MUTATE_SELECTED_GAME = "games/mutate_selected_game";
 export const MUTATE_RECOMMENDED = "games/mutate_recommended";
 export const MUTATE_POPULAR = "games/mutate_popular";
 export const MUTATE_FEATURED_GAME = "games/mutate_featured_game";
+export const MUTATE_SEARCHED_GAMES = "games/mutate_searched_game";
 
 export const GET_CATEGORIES = "games/get_categories";
 export const GET_SELECTED_GAME = "games/get_selected_game";
 export const GET_RECOMMENDED = "games/get_recommended";
 export const GET_POPULAR = "games/get_popular";
 export const GET_FEATURED_GAME = "games/get_featured_game";
+export const GET_SEARCHED_GAMES = "games/get_searched_games";

@@ -21,6 +21,13 @@ export interface ICategoriesData extends IBaseData {
   responsiveOptions: any;
 }
 
+export interface ISearchGameData {
+  value: string | null;
+  filtered: IGame[];
+  games: IGame[];
+  error: string | null;
+}
+
 export interface IModifiedData extends IBaseData {
   games$: Subscription | null;
   games: IModifiedGame[];
