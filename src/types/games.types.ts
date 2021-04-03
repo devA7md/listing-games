@@ -23,4 +23,5 @@ export interface IState {
   popular: IModifiedGame[];
   featured: IGame | null;
   selectedGame: IGame | null;
+  searchedGames: IGame[];
 }

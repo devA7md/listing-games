@@ -22,6 +22,8 @@ import {
   GET_POPULAR,
   SET_POPULAR,
   MUTATE_POPULAR,
+  MUTATE_SEARCHED_GAMES,
+  GET_SEARCHED_GAMES,
 } from "@/constants/store";
 
 const gamesModule = {
@@ -31,6 +33,7 @@ const gamesModule = {
     popular: [],
     featured: null,
     selectedGame: null,
+    searchedGames: [],
   },
   mutations: {
     [MUTATE_CATEGORIES](state: IState, payload: IGamesCategories): void {
@@ -47,6 +50,9 @@ const gamesModule = {
     },
     [MUTATE_FEATURED_GAME](state: IState, payload: IGame): void {
       state.featured = payload;
+    },
+    [MUTATE_SEARCHED_GAMES](state: IState, payload: IGame[]): void {
+      state.searchedGames = payload;
     },
   },
   actions: {
@@ -96,6 +102,9 @@ const gamesModule = {
     },
     [GET_FEATURED_GAME](state: IState): IGame | null {
       return state.featured;
+    },
+    [GET_SEARCHED_GAMES](state: IState): IGame[] {
+      return state.searchedGames;
     },
   },
 };

@@ -47,7 +47,15 @@ html {
   overflow: hidden;
 }
 
+.p-dialog-content {
+  height: 100%;
+}
+
 .sec-layout {
   @apply my-4 sm:my-5 p-4 sm:p-10;
+}
+
+.icon-style {
+  @apply text-gray-50 text-xl cursor-pointer;
 }
 </style>
