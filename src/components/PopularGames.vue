@@ -10,8 +10,7 @@
 <script lang="ts">
 import Vue from "vue";
 import { IModifiedGame } from "@/types/games.types";
-import { GET_POPULAR, SET_POPULAR } from "@/constants/store";
-import { mapGetters } from "vuex";
+import { MUTATE_POPULAR } from "@/constants/store";
 import CardsGrid from "@/components/CardsGrid.vue";
 import {
   fetchAndTransformGames,
@@ -32,12 +31,10 @@ export default Vue.extend({
       error: null,
     };
   },
-  computed: {
-    ...mapGetters({ recommended: GET_POPULAR }),
-  },
   async mounted(): Promise<void> {
-    if (this.recommended.length > 0) {
-      return (this.games = this.recommended);
+    const popular = this.$store.state.games.popular;
+    if (popular.length > 0) {
+      return (this.games = popular);
     }
 
     this.loading = true;
@@ -48,7 +45,7 @@ export default Vue.extend({
     ).subscribe(
       (games: IModifiedGame[]) => {
         this.games = games;
-        this.$store.dispatch(SET_POPULAR, games);
+        this.$store.commit(MUTATE_POPULAR, games);
         this.loading = false;
         this.error = null;
       },

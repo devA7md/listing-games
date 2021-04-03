@@ -43,12 +43,7 @@ import ProgressSpinner from "primevue/progressspinner";
 import Message from "primevue/message";
 import Button from "primevue/button";
 import { URL } from "@/constants/general";
-import {
-  GET_FEATURED_GAME,
-  SET_FEATURED_GAME,
-  SET_SELECTED_GAME,
-} from "@/constants/store";
-import { mapGetters } from "vuex";
+import { MUTATE_FEATURED_GAME, MUTATE_SELECTED_GAME } from "@/constants/store";
 import { IGame } from "@/types/games.types";
 import { handleAxiosError } from "@/services/games.services";
 import { IGameData } from "@/types/general.types";
@@ -63,14 +58,10 @@ export default Vue.extend({
       loading: false,
     };
   },
-  computed: {
-    ...mapGetters({
-      featuredGame: GET_FEATURED_GAME,
-    }),
-  },
   async mounted(): Promise<void> {
-    if (this.featuredGame) {
-      return (this.game = this.featuredGame);
+    const featuredGame = this.$store.state.games.featured;
+    if (featuredGame) {
+      return (this.game = featuredGame);
     }
 
     this.loading = true;
@@ -78,7 +69,7 @@ export default Vue.extend({
       const randomPostId = Math.max(1, Math.floor(Math.random() * 99));
       const res = await axios.get(`${URL}/posts/${randomPostId}`);
       this.game = res.data;
-      await this.$store.dispatch(SET_FEATURED_GAME, res.data);
+      await this.$store.commit(MUTATE_FEATURED_GAME, res.data);
       this.error = null;
     } catch (error) {
       this.error = handleAxiosError(error, "Couldn't fetch any featured game");
@@ -88,7 +79,7 @@ export default Vue.extend({
   },
   methods: {
     previewDetails(game: IGame): void {
-      this.$store.dispatch(SET_SELECTED_GAME, game);
+      this.$store.commit(MUTATE_SELECTED_GAME, game);
       this.$router.push({ name: "GameDetails", params: { id: game.id } });
     },
   },

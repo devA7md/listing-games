@@ -33,12 +33,7 @@ import { URL } from "@/constants/general";
 import { IGame } from "@/types/games.types";
 import { handleAxiosError } from "@/services/games.services";
 import { ISearchGameData } from "@/types/general.types";
-import { mapGetters } from "vuex";
-import {
-  GET_SEARCHED_GAMES,
-  MUTATE_SEARCHED_GAMES,
-  MUTATE_SELECTED_GAME,
-} from "@/constants/store";
+import { MUTATE_SEARCHED_GAMES, MUTATE_SELECTED_GAME } from "@/constants/store";
 
 export default Vue.extend({
   components: { InputText },
@@ -50,14 +45,10 @@ export default Vue.extend({
       error: null,
     };
   },
-  computed: {
-    ...mapGetters({
-      stateGames: GET_SEARCHED_GAMES,
-    }),
-  },
   async created(): Promise<void> {
-    if (this.stateGames.length > 0) {
-      this.games = this.stateGames;
+    const searchedGames = this.$store.state.games.searchedGames;
+    if (searchedGames.length > 0) {
+      this.games = searchedGames;
       return;
     }
     try {

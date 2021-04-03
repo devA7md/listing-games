@@ -11,12 +11,10 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { GET_CATEGORIES } from "@/constants/store";
 import {
   fetchAndCategorizeGames,
   handleAxiosError,
 } from "@/services/games.services";
-import { mapGetters } from "vuex";
 import CardsGrid from "@/components/CardsGrid.vue";
 import { ICategoryPreviewData } from "@/types/general.types";
 
@@ -29,11 +27,8 @@ export default Vue.extend({
       error: null,
     };
   },
-  computed: {
-    ...mapGetters({ categories: GET_CATEGORIES }),
-  },
   async mounted() {
-    const categories = this.categories[this.$route.params.id];
+    const categories = this.$store.state.games.categories[this.$route.params.id];
     if (categories) {
       this.games = categories;
     } else {

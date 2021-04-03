@@ -26,10 +26,8 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { mapGetters } from "vuex";
 import axios from "axios";
 import ProgressSpinner from "primevue/progressspinner";
-import { GET_SELECTED_GAME } from "@/constants/store";
 import { URL } from "@/constants/general";
 import { handleAxiosError } from "@/services/games.services";
 import Recommended from "@/components/Recommended.vue";
@@ -45,14 +43,10 @@ export default Vue.extend({
       error: null,
     };
   },
-  computed: {
-    ...mapGetters({
-      selectedGame: GET_SELECTED_GAME,
-    }),
-  },
   async created() {
-    if (this.selectedGame) {
-      this.game = this.selectedGame;
+    const selectedGame = this.$store.state.games.selectedGame;
+    if (selectedGame) {
+      this.game = selectedGame;
     } else {
       this.loading = true;
       try {
